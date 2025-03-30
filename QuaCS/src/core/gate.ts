@@ -1,6 +1,11 @@
 // gate.ts
 import { complex, matrix, Matrix } from 'mathjs';
 
+    export const I_gate: Matrix = matrix([
+        [complex(1, 0), complex(0, 0)],
+        [complex(0, 0), complex(1, 0)]
+    ]);
+    
 
     export const H_gate: Matrix = matrix([
         [complex(1 / Math.sqrt(2), 0), complex(1 / Math.sqrt(2), 0)],

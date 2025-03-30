@@ -1,5 +1,5 @@
 // circuit.ts
-import { QuantumState } from './state';
+import { QuantumState } from './state.js';
 import * as math from 'mathjs';
 
 type GateOperation = {
@@ -17,11 +17,13 @@ export class QuantumCircuit {
   }
 
   runSimulation(): QuantumState {
-    const state = new QuantumState(this.numQubits);
+    const state = new QuantumState("0"); // THIS MIGHT BE WRONG - COULD BE THIS.NUMQUBITS BUT IDK WHAT THAT IS
     
     for (const op of this.operations) {
       state.applyGate(op.gate);
     }
+
+    console.log(this.numQubits)
     
     return state;
   }

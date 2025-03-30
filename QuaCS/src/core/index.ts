@@ -1,2 +1,2 @@
-export * from './state';
-export * from './gate';
+export * from './state.js';
+export * from './gate.js';

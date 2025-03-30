@@ -1,15 +1,35 @@
-// state.ts
+// state.ts hi noah 
 import { Complex } from 'mathjs';
 import * as math from 'mathjs';
 
 export class QuantumState {
   private state: math.Matrix;
 
-  constructor(numQubits: number = 1) {
-    // Initialize to |0...0⟩ state
-    const size = Math.pow(2, numQubits);
-    const initialState = Array(size).fill(0);
-    initialState[0] = 1;
+  constructor(initState: string) { 
+    const initialState = Array(2)
+
+    if (initState == "0") { // |0⟩ state
+      initialState[0] = 1;
+      initialState[1] = 0;
+    } else if (initState == "1") { // |1⟩  state
+      initialState[0] = 0;
+      initialState[1] = 1;
+    } else if (initState == "H") { // |H⟩ state
+      initialState[0] = 0;
+      initialState[1] = 1;
+    } else if (initState == "V") { // |V⟩ state
+      initialState[0] = 0;
+      initialState[1] = 1;
+    } else if (initState == "+") { // |+⟩ state
+      initialState[0] = 1 / Math.sqrt(2);
+      initialState[1] = 1 / Math.sqrt(2);
+    } else if (initState == "-") { // |-⟩ state 
+      initialState[0] = 1 / Math.sqrt(2);
+      initialState[1] = -1 / Math.sqrt(2);
+    } else {
+      console.log("wrong number bozo")
+      // throw new Error(`Invalid initial state: ${initState}. Valid options are 0, 1, H, V, +, -`);
+    }
     this.state = math.matrix(initialState);
   }
 
@@ -26,3 +46,4 @@ export class QuantumState {
     return this.state.toArray().map(c => (c as Complex).re);
   }
 }
+//hello cro 💔🤖👁️🔊📣🦅🤢😭✅
