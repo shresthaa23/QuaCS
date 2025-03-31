@@ -8,22 +8,22 @@ export class QuantumState {
   constructor(initState: string) { 
     const initialState = Array(2)
 
-    if (initState == "0") { // |0⟩ state
+    if (initState == "0" || initState == "H") { // |0⟩ state
       initialState[0] = 1;
       initialState[1] = 0;
-    } else if (initState == "1") { // |1⟩  state
+    } else if (initState == "1" || initState == "V") { // |1⟩  state
       initialState[0] = 0;
       initialState[1] = 1;
-    } else if (initState == "H") { // |H⟩ state
-      initialState[0] = 0;
-      initialState[1] = 1;
-    } else if (initState == "V") { // |V⟩ state
-      initialState[0] = 0;
-      initialState[1] = 1;
-    } else if (initState == "+") { // |+⟩ state
+    } else if (initState == "i" || initState == "L") { // |i⟩ state
+      initialState[0] = 1 / Math.sqrt(2);
+      initialState[1] = math.complex(0, 1) / Math.sqrt(2);
+    } else if (initState == "-i" || initState == "R") { // |-i⟩ state
+      initialState[0] = 1 / Math.sqrt(2);
+      initialState[1] = math.complex(0, -1) / Math.sqrt(2);
+    } else if (initState == "+" || initState == "D") { // |+⟩ state
       initialState[0] = 1 / Math.sqrt(2);
       initialState[1] = 1 / Math.sqrt(2);
-    } else if (initState == "-") { // |-⟩ state 
+    } else if (initState == "-" || initState == "A") { // |-⟩ state 
       initialState[0] = 1 / Math.sqrt(2);
       initialState[1] = -1 / Math.sqrt(2);
     } else {
