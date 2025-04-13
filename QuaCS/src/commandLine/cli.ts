@@ -25,7 +25,7 @@ async function main() {
         H: H_gate,
       };
 
-      const init_state = await rl.question('What quantum state do you want to select (Select between 0, 1, H, V, +, or -)? ');
+      const init_state = await rl.question('What quantum state do you want to select (Select between 0, 1, i, -i, +, or -)? ');
       console.log(`The initual quantum state is, |${init_state}⟩!`);
       const q = new QuantumState(init_state);  
 

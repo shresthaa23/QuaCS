@@ -6,30 +6,32 @@ export class QuantumState {
   private state: math.Matrix;
 
   constructor(initState: string) { 
-    const initialState = Array(2)
+    let initialState: Complex[] = [math.complex(0, 0), math.complex(0, 0)];
+    const sqrt2 = Math.sqrt(2);
 
-    if (initState == "0" || initState == "H") { // |0⟩ state
-      initialState[0] = 1;
-      initialState[1] = 0;
-    } else if (initState == "1" || initState == "V") { // |1⟩  state
-      initialState[0] = 0;
-      initialState[1] = 1;
-    } else if (initState == "i" || initState == "L") { // |i⟩ state
-      initialState[0] = 1 / Math.sqrt(2);
-      initialState[1] = math.complex(0, 1) / Math.sqrt(2);
-    } else if (initState == "-i" || initState == "R") { // |-i⟩ state
-      initialState[0] = 1 / Math.sqrt(2);
-      initialState[1] = math.complex(0, -1) / Math.sqrt(2);
-    } else if (initState == "+" || initState == "D") { // |+⟩ state
-      initialState[0] = 1 / Math.sqrt(2);
-      initialState[1] = 1 / Math.sqrt(2);
-    } else if (initState == "-" || initState == "A") { // |-⟩ state 
-      initialState[0] = 1 / Math.sqrt(2);
-      initialState[1] = -1 / Math.sqrt(2);
-    } else {
-      console.log("wrong number bozo")
-      // throw new Error(`Invalid initial state: ${initState}. Valid options are 0, 1, H, V, +, -`);
+
+    if (initState === "0" || initState === "H") { // |0⟩
+      initialState = [math.complex(1, 0), math.complex(0, 0)];
+    } else if (initState === "1" || initState === "V") { // |1⟩
+      initialState = [math.complex(0, 0), math.complex(1, 0)];
+    } else if (initState === "i" || initState === "L") { // |i⟩ 
+      initialState = [
+        math.complex(1/sqrt2, 0),
+        math.complex(0, 1/sqrt2)
+      ];
+    } else if (initState === "-i" || initState === "R") { // |-i⟩ 
+      initialState = [
+        math.complex(1/sqrt2, 0),
+        math.complex(0, -1/sqrt2)
+      ];
+    } else if (initState === "+" || initState === "D") { // |+⟩
+      const val = math.complex(1/sqrt2, 0);
+      initialState = [val, val];
+    } else if (initState === "-" || initState === "A") { // |−⟩
+      const val = math.complex(1/sqrt2, 0);
+      initialState = [val, math.complex(-val.re, val.im)];
     }
+    
     this.state = math.matrix(initialState);
   }
 
@@ -46,4 +48,3 @@ export class QuantumState {
     return this.state.toArray().map(c => (c as Complex).re);
   }
 }
-//hello cro 💔🤖👁️🔊📣🦅🤢😭✅
