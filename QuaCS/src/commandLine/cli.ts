@@ -30,7 +30,7 @@ async function main() {
       const q = new QuantumState(init_state);  
 
       let flag:boolean = true;
-      let gates: Matrix[] = [];
+      const gates: Matrix[] = [];
       while (flag) {
         const init_gate = await rl.question('What gate do you want to apply (Select between I, X, Y, Z, or H, select DONE when finished)? ');
         const selectedGate: Matrix | undefined = gateMap[init_gate];
@@ -46,7 +46,7 @@ async function main() {
       }
 
       gates.reverse()
-      for (var gate of gates) {
+      for (const gate of gates) {
         q.applyGate(gate);
       }
 

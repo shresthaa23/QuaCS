@@ -1,14 +1,11 @@
-// components/StateSelector/index.tsx
-
 import React, { useState } from 'react';
-import { QuantumState } from '../../core/state';    
+// import { QuantumState } from '../../core/state';    
 
 interface StateSelectorProps {
     qubitId: number;
     initialState: string;
     onStateChange: (qubitId: number, newState: string) => void;
 }
-  
 
 export default function StateSelector({ qubitId, initialState = "0", onStateChange }: StateSelectorProps) {
     const [selectedState, setSelectedState] = useState(initialState);

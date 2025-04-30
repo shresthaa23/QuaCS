@@ -1,1 +1,0 @@
-// components/ResultsPanel/index.tsx

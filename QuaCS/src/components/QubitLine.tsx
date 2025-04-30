@@ -1,6 +1,5 @@
-// QubitLine.tsx
 import React from 'react';
-import GatePlacement from './GatePlacement';
+// import GatePlacement from './GatePlacement';
 
 interface QubitLineProps {
   qubit: {

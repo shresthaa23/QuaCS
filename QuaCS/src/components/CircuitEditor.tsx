@@ -1,8 +1,6 @@
-// components/CircuitEditor/index.tsx
-
-import React, { useState } from 'react';
-import StateSelector from '../StateSelector';
-import { QuantumState } from '../../core/state';
+import { useState } from 'react';
+import StateSelector from './StateSelector';
+import { QuantumState } from '../core/state';
 
 export default function CircuitEditor() {
   // State to track qubits and their states
