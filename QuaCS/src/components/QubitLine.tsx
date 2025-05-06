@@ -1,48 +1,81 @@
 import React from 'react';
-// import GatePlacement from './GatePlacement';
+import { Matrix } from 'mathjs';
+import * as Gates from '../core/gate';
 
-interface QubitLineProps {
-  qubit: {
-    id: number;
-    name: string;
-    initialState: string;
-    gates: string[];
-  };
-  onGateDrop: (qubitId: number, gateType: string, position: number) => void;
-  onRemove: () => void;
+interface GatePosition {
+  type: string; // H, X, Y, Z, I
+  matrix: Matrix;
 }
 
-export default function QubitLine({ qubit, onGateDrop, onRemove }: QubitLineProps) {
-  // Create an array of 10 positions for gates
-  const positions = Array(10).fill(null);
+interface QubitLineProps {
+  qubitId: number;
+  gates: (GatePosition | null)[]; // Gates are stored in an array
+  onAddGate: (qubitId: number, gateType: string, position: number) => void;
+  onRemoveGate: (qubitId: number, position: number) => void;
+}
+
+export default function QubitLine({
+  qubitId,
+  gates = Array(10).fill(null), // Default to 10 positions
+  onAddGate,
+  onRemoveGate
+}: QubitLineProps) {
   
+  const handleDragOver = (e: React.DragEvent) => {
+        e.preventDefault(); // This prevents the "not allowed" cursor
+        e.stopPropagation(); // Prevent event bubbling
+    };
+      
+  const handleDragEnter = (e: React.DragEvent) => {
+        e.preventDefault(); // This is also needed
+        e.stopPropagation();
+    };
+    
+  // Handle drop event when a gate is dragged onto this qubit line
+  const handleDrop = (e: React.DragEvent, position: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Log to confirm data is being received
+    const gateType = e.dataTransfer.getData('gateType');
+    console.log("Gate dropped:", gateType, "at position:", position);
+    
+    if (gateType) {
+      onAddGate(qubitId, gateType, position);
+    }
+  };
+
   return (
     <div className="qubit-line">
-      <div className="qubit-label">{qubit.name}</div>
-      
       <div className="gate-positions">
-        {positions.map((_, index) => (
+        {gates.map((gate, position) => (
           <div 
-            key={index}
-            className="gate-position"
-            onDrop={(e) => {
-              e.preventDefault();
-              const gateType = e.dataTransfer.getData('gate');
-              onGateDrop(qubit.id, gateType, index);
-            }}
-            onDragOver={(e) => e.preventDefault()}
+            key={position}
+            className={`gate-position ${gate ? 'has-gate' : 'empty'}`}
+            onDragOver={handleDragOver}
+            onDragEnter={handleDragEnter}
+            onDrop={(e) => handleDrop(e, position)}
+            onClick={() => gate && onRemoveGate(qubitId, position)}
           >
-            {qubit.gates[index] && (
-              <GatePlacement 
-                gateType={qubit.gates[index]} 
-                position={index}
-              />
+            {gate ? (
+              <div className="placed-gate" style={{ 
+                border: '2px solid #555',
+                borderRadius: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '90%',
+                height: '90%',
+                fontWeight: 'bold'
+              }}>
+                {gate.type}
+              </div>
+            ) : (
+              <div className="empty-slot"></div>
             )}
           </div>
         ))}
       </div>
-      
-      <button className="remove-qubit" onClick={onRemove}>×</button>
     </div>
   );
 }
